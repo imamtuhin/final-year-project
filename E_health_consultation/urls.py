@@ -3,6 +3,8 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from health.views import *
+from django.views.static import serve
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,4 +41,6 @@ urlpatterns = [
     path('delete_feedback<int:pid>', delete_feedback,name="delete_feedback"),
     path('assign_status<int:pid>', Assign_Status,name="assign_status"),
     path('delete_notification<int:pid>', delete_notification,name="delete_notification"),
+    url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]+static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
